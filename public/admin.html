@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Studio Executive Admin — Ar. Haseeb Ullah</title>
+  <meta name="robots" content="noindex, nofollow">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/custom.css">
+
+  <style>
+    body { background-color: #0b0d11; }
+    .admin-header {
+      background: #11141a;
+      border-bottom: 2px solid var(--brass-400);
+      padding: 0.9rem 1.5rem;
+    }
+    .admin-card {
+      background: #131720;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 1.8rem;
+      margin-bottom: 2rem;
+    }
+    .admin-card h3 {
+      font-size: 1.25rem;
+      color: #fff;
+      margin-bottom: 1.25rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding-bottom: 0.75rem;
+    }
+    .table-dark-custom {
+      background: transparent;
+      color: var(--ink-200);
+    }
+    .table-dark-custom th {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--brass-400);
+      border-color: rgba(255,255,255,0.08);
+    }
+    .table-dark-custom td {
+      border-color: rgba(255,255,255,0.06);
+      vertical-align: middle;
+    }
+    .thumb-preview {
+      width: 60px;
+      height: 48px;
+      object-fit: cover;
+      border-radius: 6px;
+      border: 1px solid var(--glass-border);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ADMIN AUTHENTICATION GATE -->
+  <div id="loginGate" class="min-vh-100 d-flex align-items-center justify-content-center p-3">
+    <div class="glass-panel p-4 p-md-5 w-100" style="max-width: 440px;">
+      <div class="text-center mb-4">
+        <div class="eyebrow mx-auto justify-content-center">Studio Portal</div>
+        <h2 class="font-serif text-white mb-2" style="font-size: 1.8rem;">Architectural Admin</h2>
+        <p class="text-secondary" style="font-size: 0.88rem;">Restricted access. Authenticate to manage projects and MongoDB records.</p>
+      </div>
+
+      <div id="loginError" class="alert alert-danger d-none py-2" style="font-size: 0.85rem;"></div>
+
+      <form id="loginForm">
+        <div class="mb-3">
+          <label class="form-label font-mono text-brass" style="font-size: 0.75rem;">PASSCODE</label>
+          <input type="password" id="adminPass" class="form-control form-control-custom" placeholder="Enter studio password (default: haseeb2026)" required autofocus>
+        </div>
+        <button type="submit" class="btn-brass w-100 py-2 mt-2">
+          <span>Authorize Access</span>
+          <i class="fa-solid fa-lock-open"></i>
+        </button>
+      </form>
+
+      <div class="text-center mt-4 pt-3 border-top border-secondary border-opacity-10">
+        <a href="index.html" class="text-secondary text-decoration-none font-mono" style="font-size: 0.8rem;">
+          <i class="fa-solid fa-arrow-left me-1"></i> Return to Live Portfolio
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADMIN WORKSPACE (SHOWN AFTER AUTH) -->
+  <div id="adminWorkspace" class="d-none">
+    
+    <!-- Top Bar -->
+    <header class="admin-header d-flex justify-content-between align-items-center flex-wrap gap-3">
+      <div class="d-flex align-items-center gap-3">
+        <span class="font-serif text-white fs-5 fw-bold">Ar. Haseeb Ullah</span>
+        <span class="badge bg-dark border border-warning text-brass font-mono">MongoDB Active • LOD 400</span>
+      </div>
+
+      <div class="d-flex align-items-center gap-3">
+        <a href="index.html" target="_blank" class="btn btn-sm btn-outline-light rounded-pill px-3">
+          <i class="fa-solid fa-arrow-up-right-from-square me-1"></i> View Live Site
+        </a>
+        <button class="btn btn-sm btn-danger rounded-pill px-3" onclick="logoutAdmin()">
+          <i class="fa-solid fa-arrow-right-from-bracket me-1"></i> Log Out
+        </button>
+      </div>
+    </header>
+
+    <!-- Content Dashboard Container -->
+    <div class="container-custom py-4">
+      
+      <!-- Quick Metric Counters -->
+      <div class="row g-3 mb-4">
+        <div class="col-md-4">
+          <div class="stat-box py-3 px-4">
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <div class="stat-number mb-0" id="metricTotalProjects">0</div>
+                <div class="stat-label">Stored Projects (DB)</div>
+              </div>
+              <i class="fa-solid fa-layer-group fs-2 text-brass opacity-50"></i>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="stat-box py-3 px-4">
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <div class="stat-number mb-0" id="metricTotalInquiries">0</div>
+                <div class="stat-label">Client Inquiries</div>
+              </div>
+              <i class="fa-solid fa-envelope-open-text fs-2 text-brass opacity-50"></i>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="stat-box py-3 px-4">
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <div class="stat-number mb-0" style="font-size:2rem; color: #4ade80;">Active</div>
+                <div class="stat-label">MongoDB Connection</div>
+              </div>
+              <i class="fa-solid fa-database fs-2 text-success opacity-50"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-4">
+        
+        <!-- Left Column: Add / Upload New Project -->
+        <div class="col-lg-5">
+          <div class="admin-card">
+            <h3><i class="fa-solid fa-cloud-arrow-up text-brass me-2"></i>Upload Architectural Project</h3>
+            
+            <div id="uploadFeedback" class="d-none mb-3"></div>
+
+            <form id="projectUploadForm" enctype="multipart/form-data">
+              
+              <div class="mb-3">
+                <label class="form-label font-mono text-brass" style="font-size:0.75rem;">PROJECT TITLE *</label>
+                <input type="text" name="title" class="form-control form-control-custom" placeholder="e.g. Hillside Cantilever Residence" required>
+              </div>
+
+              <div class="row g-2 mb-3">
+                <div class="col-sm-6">
+                  <label class="form-label font-mono text-brass" style="font-size:0.75rem;">CATEGORY / TYPOLOGY *</label>
+                  <select name="category" class="form-control form-control-custom">
+                    <option value="Residential">Residential</option>
+                    <option value="Commercial">Commercial</option>
+                    <option value="Interior">Interior</option>
+                    <option value="Heritage">Heritage</option>
+                    <option value="Landscape">Landscape</option>
+                    <option value="Urban">Urban</option>
+                  </select>
+                </div>
+                <div class="col-sm-6">
+                  <label class="form-label font-mono text-brass" style="font-size:0.75rem;">STATUS</label>
+                  <select name="status" class="form-control form-control-custom">
+                    <option value="Completed">Completed</option>
+                    <option value="Under Construction">Under Construction</option>
+                    <option value="BIM LOD 400">BIM LOD 400</option>
+                    <option value="Schematic Design">Schematic Design</option>
+                    <option value="Concept Stage">Concept Stage</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="row g-2 mb-3">
+                <div class="col-sm-6">
+                  <label class="form-label font-mono text-brass" style="font-size:0.75rem;">LOCATION</label>
+                  <input type="text" name="location" class="form-control form-control-custom" placeholder="e.g. Peshawar, KP">
+                </div>
+                <div class="col-sm-6">
+                  <label class="form-label font-mono text-brass" style="font-size:0.75rem;">YEAR</label>
+                  <input type="text" name="year" class="form-control form-control-custom" placeholder="2026">
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label font-mono text-brass" style="font-size:0.75rem;">CLIENT NAME</label>
+                <input type="text" name="client" class="form-control form-control-custom" placeholder="Private Estate">
+              </div>
+
+              <!-- Upload File Option -->
+              <div class="mb-3">
+                <label class="form-label font-mono text-brass" style="font-size:0.75rem;">PROJECT IMAGE FILE (UPLOAD TO SERVER) *</label>
+                <input type="file" name="imageFile" id="imageFileInput" class="form-control form-control-custom" accept="image/*">
+                <div class="form-text text-secondary" style="font-size:0.75rem;">Or provide an external high-res URL below if you don't have a local image.</div>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label font-mono text-brass" style="font-size:0.75rem;">OR EXTERNAL IMAGE URL</label>
+                <input type="url" name="image" id="imageUrlInput" class="form-control form-control-custom" placeholder="https://images.unsplash.com/...">
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label font-mono text-brass" style="font-size:0.75rem;">ARCHITECTURAL NARRATIVE / DESCRIPTION *</label>
+                <textarea name="desc" class="form-control form-control-custom" rows="3" placeholder="Contextual massing, material palette, solar considerations, BIM execution details..." required></textarea>
+              </div>
+
+              <button type="submit" id="btnUploadSubmit" class="btn-brass w-100 py-2">
+                <span>Save Project to MongoDB</span>
+                <i class="fa-solid fa-floppy-disk"></i>
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Right Column: Live MongoDB Database Projects Table -->
+        <div class="col-lg-7">
+          <div class="admin-card">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h3 class="mb-0 border-0 pb-0"><i class="fa-solid fa-database text-brass me-2"></i>Database Projects Archive</h3>
+              <button class="btn btn-sm btn-outline-warning text-brass rounded-pill px-3" onclick="fetchAdminProjects()">
+                <i class="fa-solid fa-arrows-rotate me-1"></i> Refresh
+              </button>
+            </div>
+
+            <div class="table-responsive">
+              <table class="table table-dark table-dark-custom align-middle">
+                <thead>
+                  <tr>
+                    <th>Photo</th>
+                    <th>Project</th>
+                    <th>Typology</th>
+                    <th>Status</th>
+                    <th class="text-end">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="adminProjectsTableBody">
+                  <tr>
+                    <td colspan="5" class="text-center py-4 text-secondary">Loading database records...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Inquiries Box -->
+          <div class="admin-card">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h3 class="mb-0 border-0 pb-0"><i class="fa-solid fa-inbox text-brass me-2"></i>Client Consultations & Leads</h3>
+              <button class="btn btn-sm btn-outline-warning text-brass rounded-pill px-3" onclick="fetchAdminInquiries()">
+                <i class="fa-solid fa-arrows-rotate me-1"></i> Refresh
+              </button>
+            </div>
+
+            <div class="table-responsive">
+              <table class="table table-dark table-dark-custom align-middle">
+                <thead>
+                  <tr>
+                    <th>Client</th>
+                    <th>Typology</th>
+                    <th>Scope & Message</th>
+                    <th>Date</th>
+                    <th class="text-end">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="adminInquiriesTableBody">
+                  <tr>
+                    <td colspan="5" class="text-center py-4 text-secondary">No inquiries submitted yet.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const AUTH_SESSION_KEY = 'arhaseeb_admin_authorized';
+
+    // Verify Session on Load
+    document.addEventListener('DOMContentLoaded', () => {
+      if (sessionStorage.getItem(AUTH_SESSION_KEY) === 'true') {
+        showDashboard();
+      }
+
+      // Login form handler
+      document.getElementById('loginForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const password = document.getElementById('adminPass').value;
+        const errEl = document.getElementById('loginError');
+
+        try {
+          const res = await fetch('/api/admin/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ password })
+          });
+          const data = await res.json();
+
+          if (res.ok && data.success) {
+            sessionStorage.setItem(AUTH_SESSION_KEY, 'true');
+            showDashboard();
+          } else {
+            errEl.innerText = data.message || 'Incorrect studio password';
+            errEl.classList.remove('d-none');
+          }
+        } catch (err) {
+          errEl.innerText = 'Server authentication error';
+          errEl.classList.remove('d-none');
+        }
+      });
+
+      // Project Upload form handler
+      document.getElementById('projectUploadForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const formData = new FormData(form);
+        const feedback = document.getElementById('uploadFeedback');
+        const submitBtn = document.getElementById('btnUploadSubmit');
+
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span>Saving to MongoDB...</span> <i class="fa-solid fa-spinner fa-spin"></i>';
+
+        try {
+          const res = await fetch('/api/projects', {
+            method: 'POST',
+            body: formData
+          });
+          const data = await res.json();
+
+          if (res.ok && data.success) {
+            feedback.innerHTML = `
+              <div class="alert alert-success d-flex align-items-center gap-2 mb-0" style="background: rgba(40,167,69,0.2); border: 1px solid #28a745; color: #4ade80;">
+                <i class="fa-solid fa-circle-check"></i>
+                <div>Project successfully created and stored in MongoDB!</div>
+              </div>
+            `;
+            feedback.classList.remove('d-none');
+            form.reset();
+            fetchAdminProjects();
+            setTimeout(() => feedback.classList.add('d-none'), 5000);
+          } else {
+            throw new Error(data.message || 'Failed to upload project');
+          }
+        } catch (err) {
+          feedback.innerHTML = `
+            <div class="alert alert-danger mb-0">
+              <i class="fa-solid fa-triangle-exclamation me-2"></i> ${err.message}
+            </div>
+          `;
+          feedback.classList.remove('d-none');
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = '<span>Save Project to MongoDB</span> <i class="fa-solid fa-floppy-disk"></i>';
+        }
+      });
+    });
+
+    function showDashboard() {
+      document.getElementById('loginGate').classList.add('d-none');
+      document.getElementById('adminWorkspace').classList.remove('d-none');
+      fetchAdminProjects();
+      fetchAdminInquiries();
+    }
+
+    function logoutAdmin() {
+      sessionStorage.removeItem(AUTH_SESSION_KEY);
+      window.location.reload();
+    }
+
+    // Fetch projects from MongoDB
+    async function fetchAdminProjects() {
+      const tbody = document.getElementById('adminProjectsTableBody');
+      try {
+        const res = await fetch('/api/projects');
+        const result = await res.json();
+        const projects = result.data || [];
+
+        document.getElementById('metricTotalProjects').innerText = projects.length;
+
+        if (projects.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="5" class="text-center py-4 text-secondary">No projects in database yet. Add one above!</td></tr>';
+          return;
+        }
+
+        tbody.innerHTML = projects.map(p => `
+          <tr>
+            <td>
+              <img src="${p.image}" class="thumb-preview" onerror="this.src='https://via.placeholder.com/60x48?text=Arch'">
+            </td>
+            <td>
+              <div class="fw-bold text-white">${p.title}</div>
+              <small class="text-secondary font-mono">${p.location || 'Studio'} • ${p.year || ''}</small>
+            </td>
+            <td><span class="badge bg-dark border border-secondary text-brass">${p.category}</span></td>
+            <td><span class="badge bg-secondary opacity-75 font-mono" style="font-size:0.7rem;">${p.status || 'Active'}</span></td>
+            <td class="text-end">
+              <button class="btn btn-sm btn-outline-danger py-1 px-2" onclick="deleteAdminProject('${p._id}', '${p.title.replace(/'/g, "\\'")}')" title="Delete from DB">
+                <i class="fa-solid fa-trash-can"></i>
+              </button>
+            </td>
+          </tr>
+        `).join('');
+      } catch (err) {
+        tbody.innerHTML = '<tr><td colspan="5" class="text-center text-danger py-4">Failed to fetch MongoDB projects</td></tr>';
+      }
+    }
+
+    // Delete project from MongoDB
+    async function deleteAdminProject(id, title) {
+      if (!confirm(`Are you sure you want to delete "${title}" permanently from MongoDB?`)) return;
+
+      try {
+        const res = await fetch(`/api/projects/${id}`, { method: 'DELETE' });
+        const result = await res.json();
+        if (result.success) {
+          fetchAdminProjects();
+        } else {
+          alert('Delete failed: ' + result.message);
+        }
+      } catch (err) {
+        alert('Server error deleting project');
+      }
+    }
+
+    // Fetch client inquiries from MongoDB
+    async function fetchAdminInquiries() {
+      const tbody = document.getElementById('adminInquiriesTableBody');
+      try {
+        const res = await fetch('/api/inquiries');
+        const result = await res.json();
+        const list = result.data || [];
+
+        document.getElementById('metricTotalInquiries').innerText = list.length;
+
+        if (list.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="5" class="text-center py-4 text-secondary">No consultation leads received yet.</td></tr>';
+          return;
+        }
+
+        tbody.innerHTML = list.map(item => `
+          <tr>
+            <td>
+              <div class="fw-bold text-white">${item.name}</div>
+              <small class="text-secondary font-mono">${item.email} • ${item.phone || 'N/A'}</small>
+            </td>
+            <td><span class="badge bg-dark border border-warning text-brass">${item.typology}</span></td>
+            <td>
+              <div style="max-width: 260px; font-size: 0.82rem; color: #d6dae3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${item.message}">
+                ${item.message}
+              </div>
+            </td>
+            <td class="font-mono text-secondary" style="font-size:0.75rem;">
+              ${new Date(item.createdAt).toLocaleDateString()}
+            </td>
+            <td class="text-end">
+              <button class="btn btn-sm btn-outline-danger py-1 px-2" onclick="deleteAdminInquiry('${item._id}')">
+                <i class="fa-solid fa-trash-can"></i>
+              </button>
+            </td>
+          </tr>
+        `).join('');
+      } catch (err) {
+        tbody.innerHTML = '<tr><td colspan="5" class="text-center text-danger py-4">Error loading inquiries</td></tr>';
+      }
+    }
+
+    // Delete inquiry
+    async function deleteAdminInquiry(id) {
+      if (!confirm('Remove this client inquiry?')) return;
+      try {
+        await fetch(`/api/inquiries/${id}`, { method: 'DELETE' });
+        fetchAdminInquiries();
+      } catch (err) {
+        alert('Failed to remove inquiry');
+      }
+    }
+  </script>
+</body>
+</html>
+

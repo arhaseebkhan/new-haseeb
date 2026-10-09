@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ar. Haseeb Ullah — Architectural Design, Computational & BIM Practice</title>
+  <meta name="description" content="Official architectural practice and portfolio of Ar. Haseeb Ullah. Specializing in sustainable residential, commercial towers, parametric BIM coordination, and photorealistic 3D visualization.">
+  
+  <!-- Google Fonts: Cinzel & Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Bootstrap 5.3 & FontAwesome 6 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  
+  <!-- Custom Architectural Aesthetic CSS -->
+  <link rel="stylesheet" href="assets/css/custom.css">
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="navbar-custom">
+    <div class="container-custom d-flex justify-content-between align-items-center">
+      <a href="#hero" class="brand-wrapper">
+        <span class="brand-name">Ar. Haseeb Ullah</span>
+        <span class="brand-badge"><i class="fa-solid fa-compass-drafting me-1"></i>Architecture & BIM Practice</span>
+      </a>
+
+      <ul class="nav-links d-none d-lg-flex">
+        <li><a href="#hero" class="nav-link-custom active">Home</a></li>
+        <li><a href="#about" class="nav-link-custom">Studio</a></li>
+        <li><a href="#projects" class="nav-link-custom">Portfolio</a></li>
+        <li><a href="#services" class="nav-link-custom">Services</a></li>
+        <li><a href="#process" class="nav-link-custom">Process</a></li>
+        <li><a href="#publications" class="nav-link-custom">Publications</a></li>
+        <li><a href="#contact" class="nav-link-custom">Contact</a></li>
+      </ul>
+
+      <div class="d-flex align-items-center gap-3">
+        <a href="#contact" class="btn-brass d-none d-sm-inline-flex">
+          <span>Consultation</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <section class="hero-section" id="hero">
+    <div class="hero-slider-bg" id="heroSliderBg"></div>
+    <div class="hero-gradient-overlay"></div>
+
+    <div class="container-custom hero-content w-100">
+      <div class="row align-items-center gy-5">
+        <div class="col-lg-8">
+          <div class="eyebrow" id="heroStatusBadge">Featured Typology • Schematic Design</div>
+          <h1 class="hero-heading" id="heroCurrentTitle">
+            Designing Contextual, <br><span class="gradient-gold">High-Performance Spaces</span>
+          </h1>
+          <p class="hero-subtext" id="heroCurrentDesc">
+            Bridging architectural creativity with rigorous Level 400 BIM execution. Specializing in sustainable residences, commercial envelopes, and refined interior atmospheres.
+          </p>
+
+          <div class="d-flex flex-wrap align-items-center gap-3 mb-4">
+            <a href="#projects" class="btn-brass">
+              <span>Explore Portfolio</span>
+              <i class="fa-solid fa-shapes"></i>
+            </a>
+            <a href="#about" class="btn-ghost-brass">
+              <span>Studio Profile</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </div>
+
+          <!-- Architect Profile Chip -->
+          <div class="profile-pill">
+            <img src="assets/img/438348077_467159666264180_1363624297685461631_n.jpg" alt="Ar. Haseeb Ullah" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80'">
+            <div class="info">
+              <div class="name">Ar. Haseeb Ullah</div>
+              <div class="role">Lead Architect & BIM Specialist</div>
+            </div>
+            <div class="ms-3 ps-3 border-start border-secondary border-opacity-25 d-none d-sm-flex gap-2">
+              <a href="https://wa.me/923130961515" target="_blank" class="text-brass"><i class="fa-brands fa-whatsapp"></i></a>
+              <a href="mailto:haseebkhankpk1@gmail.com" class="text-brass"><i class="fa-regular fa-envelope"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slider Controller Badge -->
+        <div class="col-lg-4 d-flex justify-content-lg-end">
+          <div class="glass-panel p-4" style="max-width: 320px; border-color: rgba(212,175,55,0.3);">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <span class="font-mono text-brass" style="font-size:0.75rem;">FEATURED ARCHIVE</span>
+              <span class="font-mono text-white fw-bold" id="heroCounter">01 / 03</span>
+            </div>
+            <p class="font-sans mb-3 text-secondary" style="font-size:0.85rem;">Cycle through our ongoing architectural schematic studies and parametric site layouts.</p>
+            <div class="d-flex gap-2">
+              <button class="btn btn-sm btn-outline-light rounded-pill px-3 py-1 flex-grow-1" onclick="prevHeroSlide()">
+                <i class="fa-solid fa-arrow-left me-1"></i> Prev
+              </button>
+              <button class="btn btn-sm btn-outline-warning rounded-pill px-3 py-1 flex-grow-1 text-brass" onclick="nextHeroSlide()">
+                Next <i class="fa-solid fa-arrow-right ms-1"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUICK STATS STRIP -->
+  <section class="py-5" style="background: rgba(16, 18, 23, 0.95); border-y: 1px solid rgba(255,255,255,0.06);">
+    <div class="container-custom">
+      <div class="row g-4">
+        <div class="col-6 col-md-3">
+          <div class="stat-box text-center">
+            <div class="stat-number">50+</div>
+            <div class="stat-label">Projects Executed</div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="stat-box text-center">
+            <div class="stat-number">LOD 400</div>
+            <div class="stat-label">BIM Precision</div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="stat-box text-center">
+            <div class="stat-number">100%</div>
+            <div class="stat-label">Site-Responsive Design</div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="stat-box text-center">
+            <div class="stat-number">3+</div>
+            <div class="stat-label">Published Guides</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT / STUDIO PHILOSOPHY -->
+  <section class="py-5 my-5" id="about">
+    <div class="container-custom">
+      <div class="row align-items-center gy-5">
+        <div class="col-lg-6">
+          <div class="pe-lg-4">
+            <div class="eyebrow">Studio Ethos</div>
+            <h2 class="mb-4" style="font-size: 2.4rem; line-height: 1.2;">
+              Form Follows Context. <br>
+              <span class="text-brass">Precision Follows Code.</span>
+            </h2>
+            <p class="text-muted-custom" style="font-size: 1.05rem; line-height: 1.8;">
+              Led by <strong>Ar. Haseeb Ullah</strong>, our studio operates at the intersection of progressive architectural form-making and digital construction technology. We believe good design shouldn't be separated from high-fidelity technical performance.
+            </p>
+            <p class="text-muted-custom" style="font-size: 1rem; line-height: 1.8;">
+              Through Building Information Modeling (BIM), advanced solar envelope simulation, and custom parametric joinery details, we eliminate guesswork between the studio desk and the construction site.
+            </p>
+            
+            <div class="mt-4 pt-3 border-top border-secondary border-opacity-15 d-flex flex-wrap gap-4">
+              <div>
+                <div class="font-mono text-brass" style="font-size:0.8rem;">CORE EXPERTISE</div>
+                <div class="text-white fw-bold">Architecture & Revit BIM</div>
+              </div>
+              <div>
+                <div class="font-mono text-brass" style="font-size:0.8rem;">LOCATION</div>
+                <div class="text-white fw-bold">Peshawar, KP & Global Remote</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="position-relative">
+            <div class="glass-panel p-2 overflow-hidden" style="border-radius: 20px;">
+              <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1000&q=85" alt="Architectural Blueprint Studio" class="w-100 rounded-4" style="height: 440px; object-fit: cover;">
+            </div>
+            <!-- Blueprint accent floating badge -->
+            <div class="position-absolute bottom-0 start-0 translate-middle-y ms-4 p-3 glass-panel glass-panel-glow d-none d-sm-block" style="max-width: 260px;">
+              <div class="d-flex align-items-center gap-2 mb-1">
+                <i class="fa-solid fa-cube text-brass"></i>
+                <span class="font-mono text-white" style="font-size:0.8rem; font-weight:600;">Full BIM Lifecycle</span>
+              </div>
+              <div class="text-secondary" style="font-size:0.75rem;">Schematic concept to coordination and facility handover sets.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO SECTION -->
+  <section class="py-5" id="projects" style="background: rgba(16, 18, 23, 0.6);">
+    <div class="container-custom">
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-4">
+        <div>
+          <div class="eyebrow">Design Index</div>
+          <h2 style="font-size: 2.3rem;">Selected Typologies & Works</h2>
+        </div>
+        <p class="text-secondary m-0" style="max-width: 440px; font-size: 0.95rem;">
+          Exploration of contextual residential typologies, sustainable commercial volumes, and bespoke interior spaces.
+        </p>
+      </div>
+
+      <!-- Filter Controls -->
+      <div class="filter-tabs">
+        <button class="filter-btn active" data-filter="all">All Projects</button>
+        <button class="filter-btn" data-filter="residential">Residential</button>
+        <button class="filter-btn" data-filter="commercial">Commercial</button>
+        <button class="filter-btn" data-filter="interior">Interior</button>
+        <button class="filter-btn" data-filter="heritage">Heritage</button>
+      </div>
+
+      <!-- Project Cards Grid -->
+      <div class="row g-4" id="projectsGrid">
+        <!-- Rendered dynamically by main.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES SECTION -->
+  <section class="py-5 my-5" id="services">
+    <div class="container-custom">
+      <div class="text-center max-w-700 mx-auto mb-5">
+        <div class="eyebrow mx-auto justify-content-center">Practice Offerings</div>
+        <h2 style="font-size: 2.4rem;">End-to-End Architectural Solutions</h2>
+        <p class="text-secondary mx-auto mt-2" style="max-width: 580px;">
+          Seamless coordination between conceptual aesthetic vision and rigorous construction-level engineering drawings.
+        </p>
+      </div>
+
+      <div class="row g-4" id="servicesGrid">
+        <!-- Rendered dynamically by main.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- METHODOLOGY / PROCESS SECTION -->
+  <section class="py-5" id="process" style="background: rgba(16, 18, 23, 0.7); border-y: 1px solid rgba(255,255,255,0.05);">
+    <div class="container-custom">
+      <div class="row align-items-center mb-5">
+        <div class="col-lg-6">
+          <div class="eyebrow">Methodology</div>
+          <h2 style="font-size: 2.3rem;">From Schematic Sketch to Handover</h2>
+        </div>
+        <div class="col-lg-6 text-lg-end">
+          <span class="font-mono text-brass" style="font-size: 0.85rem;">4-PHASE RIGOROUS WORKFLOW</span>
+        </div>
+      </div>
+
+      <div class="row g-4" id="processGrid">
+        <!-- Rendered dynamically by main.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- E-BOOKS & PUBLICATIONS -->
+  <section class="py-5 my-5" id="publications">
+    <div class="container-custom">
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-4">
+        <div>
+          <div class="eyebrow">Knowledge Base</div>
+          <h2 style="font-size: 2.3rem;">E-Books & Research Publications</h2>
+        </div>
+        <p class="text-secondary m-0" style="max-width: 440px; font-size: 0.95rem;">
+          Technical documentation guides, research papers, and parametric Revit BIM instruction manuals authored by Ar. Haseeb Ullah.
+        </p>
+      </div>
+
+      <div class="row g-4" id="ebooksGrid">
+        <!-- Rendered dynamically by main.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT & CONSULTATION STRIP -->
+  <section class="py-5" id="contact" style="background: linear-gradient(180deg, rgba(16,18,23,0.95) 0%, rgba(10,11,14,1) 100%);">
+    <div class="container-custom">
+      <div class="row gy-5 align-items-center">
+        <div class="col-lg-5">
+          <div class="eyebrow">Start A Collaboration</div>
+          <h2 class="mb-4" style="font-size: 2.5rem; line-height: 1.15;">
+            Let’s Put Your Project <br><span class="text-brass">On The Boards.</span>
+          </h2>
+          <p class="text-secondary mb-4" style="font-size: 1rem; line-height: 1.7;">
+            Whether you require full architectural planning for a residential estate, commercial BIM coordination, or interior design consultation, we are ready to assist.
+          </p>
+
+          <div class="d-flex flex-column gap-3 mb-4">
+            <div class="d-flex align-items-center gap-3">
+              <div class="service-icon mb-0" style="width: 44px; height: 44px; font-size: 1.1rem;">
+                <i class="fa-solid fa-phone"></i>
+              </div>
+              <div>
+                <div class="font-mono text-muted-custom" style="font-size:0.75rem;">DIRECT CALL & WHATSAPP</div>
+                <a href="tel:+923130961515" class="text-white text-decoration-none fw-bold">+92 313 0961515</a>
+              </div>
+            </div>
+
+            <div class="d-flex align-items-center gap-3">
+              <div class="service-icon mb-0" style="width: 44px; height: 44px; font-size: 1.1rem;">
+                <i class="fa-solid fa-envelope"></i>
+              </div>
+              <div>
+                <div class="font-mono text-muted-custom" style="font-size:0.75rem;">STUDIO EMAIL</div>
+                <a href="mailto:haseebkhankpk1@gmail.com" class="text-white text-decoration-none fw-bold">haseebkhankpk1@gmail.com</a>
+              </div>
+            </div>
+
+            <div class="d-flex align-items-center gap-3">
+              <div class="service-icon mb-0" style="width: 44px; height: 44px; font-size: 1.1rem;">
+                <i class="fa-solid fa-location-dot"></i>
+              </div>
+              <div>
+                <div class="font-mono text-muted-custom" style="font-size:0.75rem;">PRACTICE LOCATION</div>
+                <div class="text-white fw-bold">Peshawar, Khyber Pakhtunkhwa, Pakistan</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-7">
+          <div class="glass-panel p-4 p-md-5">
+            <h3 class="mb-4 text-white" style="font-size: 1.6rem;">Book An Initial Consultation</h3>
+            
+            <div id="formAlert" class="d-none mb-3"></div>
+
+            <form id="contactForm">
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label class="form-label font-mono text-brass" style="font-size:0.8rem;">FULL NAME</label>
+                  <input type="text" class="form-control form-control-custom" placeholder="e.g. Alexander Vance" required>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label font-mono text-brass" style="font-size:0.8rem;">EMAIL ADDRESS</label>
+                  <input type="email" class="form-control form-control-custom" placeholder="client@company.com" required>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label font-mono text-brass" style="font-size:0.8rem;">CONTACT PHONE / WHATSAPP</label>
+                  <input type="text" class="form-control form-control-custom" placeholder="+92 300 0000000" required>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label font-mono text-brass" style="font-size:0.8rem;">PROJECT TYPOLOGY</label>
+                  <select class="form-control form-control-custom">
+                    <option value="residential">Residential Architecture</option>
+                    <option value="commercial">Commercial Complex / Tower</option>
+                    <option value="interior">Interior Architecture</option>
+                    <option value="bim">BIM Modeling & Coordination</option>
+                    <option value="heritage">Heritage Conservation</option>
+                  </select>
+                </div>
+                <div class="col-12">
+                  <label class="form-label font-mono text-brass" style="font-size:0.8rem;">SCOPE & SITE DETAILS</label>
+                  <textarea class="form-control form-control-custom" rows="4" placeholder="Describe your site plot size, location, estimated timeline, and requirements..." required></textarea>
+                </div>
+                <div class="col-12 mt-4">
+                  <button type="submit" class="btn-brass w-100 py-3">
+                    <span>Submit Project Inquiry</span>
+                    <i class="fa-solid fa-paper-plane"></i>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container-custom">
+      <div class="row gy-4 mb-5">
+        <div class="col-lg-4">
+          <div class="brand-name mb-1">Ar. Haseeb Ullah</div>
+          <p class="font-mono text-brass mb-3" style="font-size:0.75rem;">ARCHITECTURE & BIM PRACTICE</p>
+          <p class="text-secondary" style="font-size: 0.92rem; line-height: 1.7; max-width: 320px;">
+            Committed to architectural excellence, environmental resonance, and digital construction technology.
+          </p>
+        </div>
+
+        <div class="col-lg-2 col-6">
+          <div class="font-mono text-brass mb-3" style="font-size:0.8rem;">NAVIGATION</div>
+          <ul class="list-unstyled d-flex flex-column gap-2" style="font-size: 0.9rem;">
+            <li><a href="#hero" class="text-secondary text-decoration-none">Home</a></li>
+            <li><a href="#about" class="text-secondary text-decoration-none">Studio Profile</a></li>
+            <li><a href="#projects" class="text-secondary text-decoration-none">Portfolio Works</a></li>
+            <li><a href="#services" class="text-secondary text-decoration-none">Practice Services</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-2 col-6">
+          <div class="font-mono text-brass mb-3" style="font-size:0.8rem;">TYPOLOGIES</div>
+          <ul class="list-unstyled d-flex flex-column gap-2" style="font-size: 0.9rem;">
+            <li><a href="#projects" class="text-secondary text-decoration-none">Residential</a></li>
+            <li><a href="#projects" class="text-secondary text-decoration-none">Commercial</a></li>
+            <li><a href="#projects" class="text-secondary text-decoration-none">Interior Fitout</a></li>
+            <li><a href="#projects" class="text-secondary text-decoration-none">BIM Coordination</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="font-mono text-brass mb-3" style="font-size:0.8rem;">STUDIO LOCATION</div>
+          <p class="text-secondary mb-3" style="font-size: 0.92rem;">Peshawar, Khyber Pakhtunkhwa, Pakistan</p>
+          <div class="d-flex gap-3">
+            <a href="https://wa.me/923130961515" target="_blank" class="btn btn-outline-warning btn-sm rounded-circle text-brass" style="width: 38px; height: 38px; display: inline-flex; align-items: center; justify-content: center;"><i class="fa-brands fa-whatsapp"></i></a>
+            <a href="mailto:haseebkhankpk1@gmail.com" class="btn btn-outline-warning btn-sm rounded-circle text-brass" style="width: 38px; height: 38px; display: inline-flex; align-items: center; justify-content: center;"><i class="fa-regular fa-envelope"></i></a>
+            <a href="https://linkedin.com" target="_blank" class="btn btn-outline-warning btn-sm rounded-circle text-brass" style="width: 38px; height: 38px; display: inline-flex; align-items: center; justify-content: center;"><i class="fa-brands fa-linkedin-in"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="border-top border-secondary border-opacity-10 pt-4 d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+        <div class="text-secondary font-mono" style="font-size: 0.8rem;">
+          &copy; 2026 Ar. Haseeb Ullah — Architectural Design & BIM Practice. All rights reserved.
+        </div>
+        <div class="text-secondary font-mono" style="font-size: 0.8rem;">
+          Designed for Excellence • cPanel & Passenger Ready
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- PROJECT DETAILS MODAL -->
+  <div class="modal fade custom-modal" id="projectModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content p-3 p-md-4">
+        <div class="modal-header border-0 pb-0">
+          <h4 class="modal-title font-serif text-white" id="projectModalTitle">Project Details</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="projectModalBody">
+          <!-- Dynamic details filled by main.js -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
+
