@@ -324,13 +324,22 @@
           if (res.ok && data.success) {
             sessionStorage.setItem(AUTH_SESSION_KEY, 'true');
             showDashboard();
+            return;
           } else {
             errEl.innerText = data.message || 'Incorrect studio password';
             errEl.classList.remove('d-none');
+            return;
           }
         } catch (err) {
-          errEl.innerText = 'Server authentication error';
-          errEl.classList.remove('d-none');
+          // Static environment fallback (e.g. GitHub Pages)
+          if (password === 'haseeb2026') {
+            sessionStorage.setItem(AUTH_SESSION_KEY, 'true');
+            showDashboard();
+            return;
+          } else {
+            errEl.innerText = 'Incorrect studio password';
+            errEl.classList.remove('d-none');
+          }
         }
       });
 

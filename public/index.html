@@ -39,6 +39,9 @@
       </ul>
 
       <div class="d-flex align-items-center gap-3">
+        <button class="btn btn-sm btn-outline-warning text-brass rounded-pill px-3 py-2 font-mono" style="font-size:0.8rem; border-color: rgba(212,175,55,0.4);" data-bs-toggle="modal" data-bs-target="#adminLoginModal">
+          <i class="fa-solid fa-user-lock me-1"></i> Studio Access
+        </button>
         <a href="#contact" class="btn-brass d-none d-sm-inline-flex">
           <span>Consultation</span>
           <i class="fa-solid fa-arrow-right"></i>
@@ -439,9 +442,83 @@
     </div>
   </div>
 
+  <!-- STUDIO ACCESS / ADMIN MODAL -->
+  <div class="modal fade custom-modal" id="adminLoginModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 420px;">
+      <div class="modal-content p-4">
+        <div class="modal-header border-0 pb-0">
+          <div>
+            <div class="eyebrow mb-1">Restricted Access</div>
+            <h4 class="modal-title font-serif text-white">Studio Admin Portal</h4>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body pt-3">
+          <p class="text-secondary" style="font-size:0.85rem;">Enter the administrative studio passcode to access the project management dashboard.</p>
+          
+          <div id="navLoginError" class="alert alert-danger d-none py-2 mb-3" style="font-size:0.82rem;"></div>
+
+          <form id="navLoginForm">
+            <div class="mb-3">
+              <label class="form-label font-mono text-brass" style="font-size:0.75rem;">PASSCODE</label>
+              <input type="password" id="navAdminPass" class="form-control form-control-custom" placeholder="Enter password (haseeb2026)" required autofocus>
+            </div>
+            <button type="submit" id="navLoginBtn" class="btn-brass w-100 py-2">
+              <span>Sign In to Studio</span>
+              <i class="fa-solid fa-arrow-right-to-bracket ms-1"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="assets/js/main.js"></script>
+  <script>
+    // Quick Studio Access from Navbar Modal
+    document.getElementById('navLoginForm')?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const pass = document.getElementById('navAdminPass').value;
+      const errEl = document.getElementById('navLoginError');
+      const btn = document.getElementById('navLoginBtn');
+
+      btn.disabled = true;
+      btn.innerHTML = '<span>Verifying...</span> <i class="fa-solid fa-spinner fa-spin"></i>';
+
+      try {
+        const res = await fetch('/api/admin/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ password: pass })
+        });
+        const data = await res.json();
+
+        if (res.ok && data.success) {
+          sessionStorage.setItem('arhaseeb_admin_authorized', 'true');
+          window.location.href = 'admin.html';
+          return;
+        } else {
+          errEl.innerText = data.message || 'Incorrect studio password';
+          errEl.classList.remove('d-none');
+        }
+      } catch (err) {
+        // Fallback for static GitHub Pages hosting
+        if (pass === 'haseeb2026') {
+          sessionStorage.setItem('arhaseeb_admin_authorized', 'true');
+          window.location.href = 'admin.html';
+          return;
+        } else {
+          errEl.innerText = 'Incorrect studio password';
+          errEl.classList.remove('d-none');
+        }
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<span>Sign In to Studio</span> <i class="fa-solid fa-arrow-right-to-bracket ms-1"></i>';
+      }
+    });
+  </script>
 </body>
 </html>
 
