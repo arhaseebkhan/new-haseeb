@@ -318,11 +318,34 @@ async function renderProjects(filter = 'all') {
       </div>
     `).join('');
   } catch (err) {
-    grid.innerHTML = `
-      <div class="col-12 text-center py-4 text-danger font-mono">
-        <i class="fa-solid fa-triangle-exclamation me-2"></i> Failed to connect to MongoDB backend API.
+    // If backend API is unreachable (e.g. static hosting like GitHub Pages), display built-in project portfolio
+    const fallbackProjects = filter === 'all' 
+      ? ARCH_DATA.projects 
+      : ARCH_DATA.projects.filter(p => p.category.toLowerCase() === filter.toLowerCase());
+    liveProjectsCache = fallbackProjects;
+
+    grid.innerHTML = fallbackProjects.map(p => `
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="project-card" onclick="openProjectModal('${p.id}')">
+          <div class="project-img-wrapper">
+            <span class="project-category-badge">${p.category}</span>
+            <img src="${p.image}" alt="${p.title}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80'">
+          </div>
+          <div class="project-info">
+            <div class="project-meta">
+              <span><i class="fa-solid fa-location-dot me-1 text-brass"></i>${p.location || 'Studio Project'}</span>
+              <span><i class="fa-regular fa-calendar me-1 text-brass"></i>${p.year || '2026'}</span>
+            </div>
+            <h3 class="project-title">${p.title}</h3>
+            <p class="project-desc">${p.desc}</p>
+            <div class="mt-auto d-flex align-items-center justify-content-between pt-3 border-top border-secondary border-opacity-10">
+              <span class="font-mono text-brass" style="font-size:0.8rem; letter-spacing:0.05em;">View Blueprint</span>
+              <i class="fa-solid fa-arrow-right text-brass"></i>
+            </div>
+          </div>
+        </div>
       </div>
-    `;
+    `).join('');
   }
 }
 
